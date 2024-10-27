@@ -1,0 +1,30 @@
+// models/Task.js
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database'); // Your DB configuration
+
+const Task = sequelize.define('Task', {
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: DataTypes.TEXT,
+  },
+  due_date: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  is_recurring: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  recurrence_type: {
+    type: DataTypes.ENUM('daily', 'weekly', 'monthly', 'yearly'),
+  },
+  recurrence_customization: {
+    type: DataTypes.JSON,
+    allowNull: true,
+  },
+});
+
+module.exports = Task;
