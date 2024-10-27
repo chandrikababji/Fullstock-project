@@ -1,0 +1,50 @@
+// routes/tasks.js
+const express = require('express');
+const Task = require('../models/Task');
+const router = express.Router();
+
+// Create Task
+router.post('/', async (req, res) => {
+  try {
+    const task = await Task.create(req.body);
+    res.json(task);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to create task' });
+  }
+});
+
+// Read Tasks
+router.get('/', async (req, res) => {
+  try {
+    const tasks = await Task.findAll();
+    res.json(tasks);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to retrieve tasks' });
+  }
+});
+
+// Update Task
+router.put('/:id', async (req, res) => {
+  try {
+    const task = await Task.update(req.body, {
+      where: { id: req.params.id },
+    });
+    res.json(task);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update task' });
+  }
+});
+
+// Delete Task
+router.delete('/:id', async (req, res) => {
+  try {
+    await Task.destroy({
+      where: { id: req.params.id },
+    });
+    res.json({ message: 'Task deleted' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete task' });
+  }
+});
+
+module.exports = router;
