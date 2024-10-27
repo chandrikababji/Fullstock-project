@@ -1,0 +1,52 @@
+// components/TaskForm.js
+import { useState } from 'react';
+import useTaskStore from '../store/useTaskStore';
+
+const TaskForm = () => {
+  const [task, setTask] = useState({ title: '', description: '', due_date: '', is_recurring: false });
+  const { addTask } = useTaskStore();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addTask(task);
+    setTask({ title: '', description: '', due_date: '', is_recurring: false });
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="task-form">
+      <input
+        type="text"
+        placeholder="Task title"
+        value={task.title}
+        onChange={(e) => setTask({ ...task, title: e.target.value })}
+        className="border p-2"
+      />
+      <textarea
+        placeholder="Task description"
+        value={task.description}
+        onChange={(e) => setTask({ ...task, description: e.target.value })}
+        className="border p-2"
+      />
+      <input
+        type="date"
+        value={task.due_date}
+        onChange={(e) => setTask({ ...task, due_date: e.target.value })}
+        className="border p-2"
+      />
+      <div>
+        <label>Recurring:</label>
+        <input
+          type="checkbox"
+          checked={task.is_recurring}
+          onChange={(e) => setTask({ ...task, is_recurring: e.target.checked })}
+        />
+      </div>
+      {/* Additional fields for recurrence customization */}
+      <button type="submit" className="bg-blue-500 p-2">
+        Add Task
+      </button>
+    </form>
+  );
+};
+
+export default TaskForm;
