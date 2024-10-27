@@ -1,0 +1,15 @@
+// __tests__/TaskForm.test.js
+import { render, screen, fireEvent } from '@testing-library/react';
+import TaskForm from '../components/TaskForm';
+
+test('renders task form', () => {
+  render(<TaskForm />);
+  expect(screen.getByPlaceholderText('Task title')).toBeInTheDocument();
+});
+
+test('submits task', () => {
+  const { getByPlaceholderText, getByText } = render(<TaskForm />);
+  fireEvent.change(getByPlaceholderText('Task title'), { target: { value: 'Test Task' } });
+  fireEvent.click(getByText('Add Task'));
+  expect(getByText('Test Task')).toBeInTheDocument();
+});
