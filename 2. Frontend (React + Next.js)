@@ -1,0 +1,3 @@
+npx create-next-app todo-app
+cd todo-app
+npm install axios tailwindcss zustand
