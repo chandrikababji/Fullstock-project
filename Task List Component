@@ -1,0 +1,25 @@
+// components/TaskList.js
+import useTaskStore from '../store/useTaskStore';
+import { useEffect } from 'react';
+
+const TaskList = () => {
+  const { tasks, fetchTasks, deleteTask } = useTaskStore();
+
+  useEffect(() => {
+    fetchTasks();
+  }, [fetchTasks]);
+
+  return (
+    <div className="task-list">
+      {tasks.map((task) => (
+        <div key={task.id} className="task-item p-4">
+          <h3>{task.title}</h3>
+          <p>{task.description}</p>
+          <button onClick={() => deleteTask(task.id)} className="bg-red-500 p-2">Delete</button>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default TaskList;
