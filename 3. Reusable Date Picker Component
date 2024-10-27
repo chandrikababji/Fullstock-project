@@ -1,0 +1,24 @@
+// components/DatePicker.js
+import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
+const CustomDatePicker = ({ selectedDate, onChange }) => {
+  const [startDate, setStartDate] = useState(selectedDate || new Date());
+
+  return (
+    <div>
+      <DatePicker
+        selected={startDate}
+        onChange={(date) => {
+          setStartDate(date);
+          onChange(date);
+        }}
+        inline
+      />
+      {/* Add mini-calendar preview here */}
+    </div>
+  );
+};
+
+export default CustomDatePicker;
